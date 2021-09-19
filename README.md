@@ -2,7 +2,9 @@
 comandi x nicolo ciao github
 
 
-```git clone
+```
+git clone
 cd pup
 npm i 
-npm run start```
+npm run start
+```
