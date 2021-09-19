@@ -40,42 +40,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var puppeteer_1 = __importDefault(require("puppeteer"));
-function run() {
-    return __awaiter(this, void 0, void 0, function () {
-        var browser, page, feedHandle;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, puppeteer_1.default.launch({ headless: false })];
-                case 1:
-                    browser = _a.sent();
-                    return [4 /*yield*/, browser.newPage()];
-                case 2:
-                    page = _a.sent();
-                    return [4 /*yield*/, page.setViewport({ width: 1920, height: 1080 })];
-                case 3:
-                    _a.sent();
-                    return [4 /*yield*/, page.setRequestInterception(true)];
-                case 4:
-                    _a.sent();
-                    page.on('request', function (req) {
-                        if (req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image') {
-                            req.abort();
-                        }
-                        else {
-                            req.continue();
-                        }
-                    });
-                    return [4 /*yield*/, page.goto('https://altadefinizione.sale/?s=terminal')];
-                case 5:
-                    _a.sent();
-                    return [4 /*yield*/, page.$$('.col-lg-3.col-md-4.col-xs-4.mb-30')];
-                case 6:
-                    feedHandle = _a.sent();
-                    !feedHandle && console.log("culo");
-                    console.log(feedHandle);
-                    return [2 /*return*/];
-            }
-        });
+(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var browser, page, data, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, puppeteer_1.default.launch({
+                    headless: false,
+                    slowMo: 100, // slow down by 250ms
+                })];
+            case 1:
+                browser = _a.sent();
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 6, 7, 9]);
+                return [4 /*yield*/, browser.pages()];
+            case 3:
+                page = (_a.sent())[0];
+                return [4 /*yield*/, page.goto('https://altadefinizione.sale/?s=matrix')];
+            case 4:
+                _a.sent();
+                return [4 /*yield*/, page.evaluate(function () {
+                        var divs = document.querySelectorAll('.col-lg-3.col-md-4.col-xs-4.mb-30');
+                        console.log(divs.item(1));
+                        var imgSources = Array.from(divs, function (div) { var _a; return (_a = div.querySelector("a")) === null || _a === void 0 ? void 0 : _a.href; });
+                        return imgSources;
+                    })];
+            case 5:
+                data = _a.sent();
+                console.log(data);
+                return [3 /*break*/, 9];
+            case 6:
+                err_1 = _a.sent();
+                console.error(err_1);
+                return [3 /*break*/, 9];
+            case 7: return [4 /*yield*/, browser.close()];
+            case 8:
+                _a.sent();
+                return [7 /*endfinally*/];
+            case 9: return [2 /*return*/];
+        }
     });
-}
-run();
+}); })();

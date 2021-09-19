@@ -1,36 +1,28 @@
-import pup from "puppeteer"
+import puppeteer from "puppeteer"
 
 
 
 
 
-async function run() {
-    let browser = await pup.launch({ headless: false });
-    let page = await browser.newPage();
-    await page.setViewport({ width: 1920, height: 1080 });
-    await page.setRequestInterception(true);
-    page.on('request', (req) => {
-        if (req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image') {
-            req.abort();
-        }
-        else {
-            req.continue();
-        }
+(async () => {
+    const browser = await puppeteer.launch({
+        headless: false,
+        slowMo: 100, // slow down by 250ms
     });
-    await page.goto('https://altadefinizione.sale/?s=terminal');
+    try {
+        const [page] = await browser.pages();
 
-    // <div class="feed">aac
-    //     <div class="tweet">Hello!</div>
-    //     <div class="tweet">Hi!</div>
-    // </div>
-    // const feedHandle = await page.$('.feed');
-    // expect(
-    //     await feedHandle.$$eval('.tweet', (nodes) => nodes.map((n) => n.innerText))
-    // ).toEqual(['Hello!', 'Hi!']);
-    const feedHandle = await page.$$('.col-lg-3.col-md-4.col-xs-4.mb-30');
-    !feedHandle && console.log("culo");
-    
+        await page.goto('https://altadefinizione.sale/?s=matrix');
 
-    console.log(feedHandle);
-}
-run();
+        const data = await page.evaluate(() => {
+            const divs = document.querySelectorAll('.col-lg-3.col-md-4.col-xs-4.mb-30');
+            console.log(divs.item(1));
+             
+            const imgSources = Array.from(divs, div => div.querySelector("a")?.href);
+            return imgSources;
+        });
+        console.log(data);
+        
+        
+    } catch (err) { console.error(err); } finally { await browser.close(); }
+})();
