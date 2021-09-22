@@ -9,7 +9,7 @@ const DoomMp4 = async () => {
     
 
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         slowMo: 100, // slow down by 250ms
     });
 
@@ -37,15 +37,20 @@ const DoomMp4 = async () => {
     console.log(streamTape);
 
     //--------------< NOT WORKING >------------------//
-    if (streamTape) {
-        const res = await page.goto(streamTape)
-        const mp4 = await page.evaluate(() => {
-            const vide = document.getElementById("mainvideo") as HTMLVideoElement
-            // document.querySelectorAll('mainvideo').forEach((n : HTMLVideoElement)=>{n.src})
-        })
+    // if (streamTape) {
+    //     page.setJavaScriptEnabled(false)
+        
+    //     const res = await page.goto(streamTape)
+    //     const mp4 = await page.$$eval("loader")
+
+        
+    //     console.log("charrivata");
         
         
-    }
+    //     console.log(mp4);
+        
+        
+    // }
 
 
 }

@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fastify": "^3.21.5",
     "puppeteer": "^10.2.0"
   },
   "devDependencies": {
