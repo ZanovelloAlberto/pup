@@ -30,7 +30,7 @@ links("matrix")
 ```
 
 
-- return the mp4 link for a given "filmpage". 
+- return the iframe.src link for a given "filmpage". 
 
 ```ts
 // Example (index.ts):
@@ -41,3 +41,11 @@ mp4('https://altadefinizione.sale/matrix-streaming-4k/')
 // logs:
 // https://streamtape.com/e/08PvG0LD3aCbr3e
 ```
+
+
+# REST api
+in the folder src/Server is palced the route of the api it provide scraping service over the network
+<br>
+<bl>
+<p>home page with instruction of service</p>
+<img src="res/help.png" width="450px"/>

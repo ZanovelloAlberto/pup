@@ -9,7 +9,7 @@ const DoomMp4 = async () => {
     
 
     const browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         slowMo: 100, // slow down by 250ms
     });
 
@@ -34,7 +34,7 @@ const DoomMp4 = async () => {
 
     })
     
-    console.log(streamTape);
+    return (streamTape);
 
     //--------------< NOT WORKING >------------------//
     // if (streamTape) {
@@ -58,5 +58,5 @@ const DoomMp4 = async () => {
 
 export default (v : string) => {
     link = v
-    DoomMp4()
+    return DoomMp4()
 }
